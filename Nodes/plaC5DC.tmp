@@ -1,0 +1,88 @@
+[gd_scene load_steps=10 format=3 uid="uid://bppj3pue6338v"]
+
+[ext_resource type="Texture2D" uid="uid://fxoffwvp2xdg" path="res://Assets/icon.svg" id="1_gsu4d"]
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_k8oif"]
+[ext_resource type="Script" path="res://Scripts/States/StateMachine.gd" id="3_4psnb"]
+[ext_resource type="Script" path="res://Scripts/States/Player/PlayerControl.gd" id="4_x80gn"]
+[ext_resource type="PackedScene" uid="uid://o6qtqm1qvnt3" path="res://Nodes/player_attack.tscn" id="5_fbjh2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ays7"]
+size = Vector2(130, 127)
+
+[sub_resource type="Animation" id="Animation_xi0wj"]
+resource_name = "attack"
+length = 5.0001
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerAttack:process_mode")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(2, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 4]
+}
+
+[sub_resource type="Animation" id="Animation_8mssh"]
+length = 5.0001
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerAttack:process_mode")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1e-05),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"test"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8ybqc"]
+_data = {
+"RESET": SubResource("Animation_8mssh"),
+"attack": SubResource("Animation_xi0wj")
+}
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+script = ExtResource("1_k8oif")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_gsu4d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_2ays7")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initialState")]
+script = ExtResource("3_4psnb")
+initialState = NodePath("PlayerControl")
+
+[node name="PlayerControl" type="Node" parent="StateMachine"]
+script = ExtResource("4_x80gn")
+
+[node name="PlayerAttack" parent="." instance=ExtResource("5_fbjh2")]
+process_mode = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8ybqc")
+}

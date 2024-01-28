@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://gtmyh0nxh3po"]
+
+[ext_resource type="PackedScene" uid="uid://ccp065eki7vnx" path="res://Nodes/pause_controller.tscn" id="1_o5mdd"]
+[ext_resource type="PackedScene" uid="uid://bppj3pue6338v" path="res://Nodes/player.tscn" id="1_ouasl"]
+[ext_resource type="Texture2D" uid="uid://b5oh4xaqrn236" path="res://Assets/background.png" id="3_w2rqg"]
+[ext_resource type="Script" path="res://Scripts/Waves/WaveController.gd" id="4_8v1xi"]
+[ext_resource type="Script" path="res://Scripts/Waves/Wave1.gd" id="4_dje3h"]
+[ext_resource type="Script" path="res://Scripts/Waves/Wave2.gd" id="5_oenvd"]
+
+[node name="World" type="Node2D" groups=["World"]]
+
+[node name="PauseController" parent="." instance=ExtResource("1_o5mdd")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.4, 0.4)
+
+[node name="Player" parent="." instance=ExtResource("1_ouasl")]
+position = Vector2(75, 37)
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 16
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Walls"]
+polygon = PackedVector2Array(-425, -23, -361, -41, -302, -52, -292, -98, -228, -98, -221, -64, -124, -72, 0, -75, 125, -71, 233, -62, 255, -102, 315, -86, 317, -50, 376, -37, 423, -23, 424, -241, -425, -243)
+
+[node name="Bounds" type="StaticBody2D" parent="."]
+collision_layer = 16
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Bounds"]
+polygon = PackedVector2Array(-424, 240, -424, -24, -452, -24, -452, 274, 464, 272, 464, -24, 424, -24, 424, 240)
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -1
+texture = ExtResource("3_w2rqg")
+
+[node name="WaveController" type="Node" parent="."]
+script = ExtResource("4_8v1xi")
+
+[node name="Wave1" type="Node" parent="WaveController"]
+script = ExtResource("4_dje3h")
+
+[node name="Wave2" type="Node" parent="WaveController"]
+script = ExtResource("5_oenvd")

@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://o6qtqm1qvnt3"]
+
+[ext_resource type="Script" path="res://Scripts/Player/PlayerAttack.gd" id="1_ldqqs"]
+
+[node name="PlayerAttack" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+monitoring = false
+script = ExtResource("1_ldqqs")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(4, -16, 24, -16, 32, 0, 24, 16, 4, 16, 0, 0)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+modulate = Color(1, 1, 1, 0.470588)
+color = Color(0.615686, 1, 0.996078, 1)
+polygon = PackedVector2Array(0, 0, 4, -16, 24, -16, 32, 0, 24, 16, 4, 16)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

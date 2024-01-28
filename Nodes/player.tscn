@@ -1,0 +1,246 @@
+[gd_scene load_steps=15 format=3 uid="uid://bppj3pue6338v"]
+
+[ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_if4fk"]
+[ext_resource type="Texture2D" uid="uid://cq5k6f7uu3yq6" path="res://Assets/player_placeholder.png" id="2_hjx0s"]
+[ext_resource type="Script" path="res://Scripts/States/StateMachine.gd" id="3_4psnb"]
+[ext_resource type="Script" path="res://Scripts/States/Player/PlayerControlState.gd" id="4_x80gn"]
+[ext_resource type="PackedScene" uid="uid://o6qtqm1qvnt3" path="res://Nodes/player_attack.tscn" id="5_fbjh2"]
+[ext_resource type="Script" path="res://Scripts/States/Player/PlayerRollState.gd" id="5_hqh7t"]
+[ext_resource type="Script" path="res://Scripts/States/Player/PlayerAttackState.gd" id="6_2hbwk"]
+[ext_resource type="Script" path="res://Scripts/States/Player/PlayerKnockbackState.gd" id="7_7xnpi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ays7"]
+size = Vector2(8, 22)
+
+[sub_resource type="Animation" id="Animation_s2lko"]
+length = 0.001
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerAttack:monitoring")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerAttack:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0sdr5"]
+resource_name = "attack"
+length = 0.500003
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerAttack:monitoring")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerAttack")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0166667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"set_angle"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StateMachine/Attack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.500001),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"end_attack"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerAttack:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.0166667, 0.500001),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_s02q5"]
+resource_name = "knockback"
+length = 0.750002
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:immune")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0166667, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StateMachine/Knockback")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.166334),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"end_knockback"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0166667, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.584314), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:stunned")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.0166667, 0.166667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_c12na"]
+resource_name = "roll"
+length = 0.333335
+step = 0.0166667
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StateMachine/Roll")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.333333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"end_roll"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:collision_mask")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0166667, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [16, 16, 16]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_26vh7"]
+_data = {
+"RESET": SubResource("Animation_s2lko"),
+"attack": SubResource("Animation_0sdr5"),
+"knockback": SubResource("Animation_s02q5"),
+"roll": SubResource("Animation_c12na")
+}
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+position = Vector2(1, 1)
+collision_mask = 16
+platform_floor_layers = 4294967040
+script = ExtResource("1_if4fk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, -1)
+texture = ExtResource("2_hjx0s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 2)
+shape = SubResource("RectangleShape2D_2ays7")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initialState")]
+script = ExtResource("3_4psnb")
+initialState = NodePath("Control")
+
+[node name="Control" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("4_x80gn")
+player = NodePath("../..")
+
+[node name="Roll" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("5_hqh7t")
+player = NodePath("../..")
+
+[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("6_2hbwk")
+player = NodePath("../..")
+
+[node name="Knockback" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("7_7xnpi")
+player = NodePath("../..")
+
+[node name="PlayerAttack" parent="." instance=ExtResource("5_fbjh2")]
+visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_26vh7")
+}
