@@ -1,9 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://gtmyh0nxh3po"]
+[gd_scene load_steps=10 format=3 uid="uid://gtmyh0nxh3po"]
 
 [ext_resource type="PackedScene" uid="uid://ccp065eki7vnx" path="res://Nodes/pause_controller.tscn" id="1_o5mdd"]
 [ext_resource type="PackedScene" uid="uid://bppj3pue6338v" path="res://Nodes/player.tscn" id="1_ouasl"]
 [ext_resource type="Texture2D" uid="uid://b5oh4xaqrn236" path="res://Assets/background.png" id="3_w2rqg"]
 [ext_resource type="PackedScene" uid="uid://vyybb1ind7lg" path="res://Nodes/wave_controller.tscn" id="4_x3ub7"]
+[ext_resource type="PackedScene" uid="uid://fuenm7phvpmw" path="res://Nodes/clown.tscn" id="5_alaoa"]
+[ext_resource type="Texture2D" uid="uid://c5ovxc3wyuna2" path="res://Assets/healthbarUnder.png" id="6_7vhro"]
+[ext_resource type="Script" path="res://Scripts/HealthBar.gd" id="6_xoogb"]
+[ext_resource type="Texture2D" uid="uid://n6afcxs6a3hj" path="res://Assets/healthbarProgress.png" id="7_ed1gk"]
+[ext_resource type="Script" path="res://Scripts/FunBar.gd" id="9_mwo0r"]
 
 [node name="World" type="Node2D" groups=["World"]]
 
@@ -13,7 +18,7 @@
 zoom = Vector2(0.4, 0.4)
 
 [node name="Player" parent="." instance=ExtResource("1_ouasl")]
-position = Vector2(75, 37)
+position = Vector2(6, 4)
 
 [node name="Walls" type="StaticBody2D" parent="."]
 collision_layer = 16
@@ -32,3 +37,32 @@ z_index = -1
 texture = ExtResource("3_w2rqg")
 
 [node name="WaveController" parent="." instance=ExtResource("4_x3ub7")]
+
+[node name="Clown" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_alaoa")]
+position = Vector2(0, -176)
+player = NodePath("../Player")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 9
+
+[node name="HealthBar" type="TextureProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
+top_level = true
+offset_left = 10.0
+offset_top = 170.0
+offset_right = 74.0
+offset_bottom = 222.0
+texture_under = ExtResource("6_7vhro")
+texture_progress = ExtResource("7_ed1gk")
+script = ExtResource("6_xoogb")
+player = NodePath("../../Player")
+
+[node name="FunBar" type="TextureProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("clown")]
+offset_left = 316.0
+offset_top = 178.0
+offset_right = 380.0
+offset_bottom = 218.0
+rotation = -1.5708
+texture_under = ExtResource("6_7vhro")
+texture_progress = ExtResource("7_ed1gk")
+script = ExtResource("9_mwo0r")
+clown = NodePath("../../Clown")

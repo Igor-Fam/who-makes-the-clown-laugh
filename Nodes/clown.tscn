@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://fuenm7phvpmw"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy/Clown.gd" id="1_sri2b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j3py8"]
+size = Vector2(64, 80)
+
+[node name="Clown" type="StaticBody2D" groups=["Clown"]]
+script = ExtResource("1_sri2b")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_j3py8")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.345098, 0, 0, 1)
+polygon = PackedVector2Array(-32, 32, -32, -48, 32, -48, 32, 32)

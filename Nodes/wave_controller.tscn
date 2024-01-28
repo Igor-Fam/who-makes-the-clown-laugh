@@ -12,14 +12,20 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(1, 1.5, 2.5, 4, 4.5, 4.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0.9, 1, 1.5, 2, 2.5, 4, 4.5, 4.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "values": [{
+"args": [],
+"method": &"toggle_in_wave"
+}, {
 "args": ["L", "OBSERVER"],
 "method": &"spawn_enemy"
 }, {
 "args": ["R", "OBSERVER"],
 "method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"throw_bandage"
 }, {
 "args": ["R", "OBSERVER"],
 "method": &"spawn_enemy"

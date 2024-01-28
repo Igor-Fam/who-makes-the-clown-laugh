@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://dmyhi7hxntlo"]
+
+[ext_resource type="AudioStream" uid="uid://ch61inkdp8s7y" path="res://Assets/1_bumbo.wav" id="1_2vui0"]
+[ext_resource type="Script" path="res://Scripts/MusicController.gd" id="1_rhmfg"]
+[ext_resource type="AudioStream" uid="uid://br118n0silydf" path="res://Assets/2_hihat.wav" id="2_nd26d"]
+[ext_resource type="AudioStream" uid="uid://yjfux3sr1ejr" path="res://Assets/3_clap.wav" id="3_3d81k"]
+[ext_resource type="AudioStream" uid="uid://fb5x3gwyvu36" path="res://Assets/4_808.wav" id="4_et0m5"]
+
+[node name="MusicController" type="Node"]
+script = ExtResource("1_rhmfg")
+
+[node name="BGM1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_2vui0")
+volume_db = -71.315
+
+[node name="BGM2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_nd26d")
+
+[node name="BGM3" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_3d81k")
+
+[node name="BGM4" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_et0m5")

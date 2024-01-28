@@ -7,7 +7,7 @@ var player : CharacterBody2D
 var direction : Vector2
 var speed : float
 
-const ATTACK_MOVE_SPEED = 7000.0
+const ATTACK_MOVE_SPEED = 4000.0
 
 func enter():
 	player = get_tree().get_first_node_in_group("Player")

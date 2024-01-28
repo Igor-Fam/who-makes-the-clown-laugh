@@ -9,12 +9,13 @@ func state_physics_update(delta):
 	if(player.stunned):
 		return
 	
-	if Input.is_action_just_pressed("ui_attack"):
+	if(Input.is_action_just_pressed("ui_attack")):
 		Transitioned.emit(self, "attack")
 		return
 	
-	if Input.is_action_just_pressed("ui_roll"):
+	if(Input.is_action_just_pressed("ui_roll") && player.rollCooldown <= 0):
 		Transitioned.emit(self, "roll")
+		player.rollCooldown = player.ROLL_COOLDOWN
 		return
 	
 	var directionX = Input.get_axis("ui_left", "ui_right")

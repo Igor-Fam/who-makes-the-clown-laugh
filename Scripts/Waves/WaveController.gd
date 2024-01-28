@@ -9,7 +9,9 @@ var enemyPath = preload("res://Nodes/enemy.tscn")
 var active = false
 
 @onready var player = get_tree().get_first_node_in_group("Player")
+@onready var clown = get_tree().get_first_node_in_group("Clown")
 @onready var world = get_tree().get_first_node_in_group("World")
+@onready var pauseController = get_tree().get_first_node_in_group("Pause")
 @onready var animPlayer = $AnimationPlayer
 
 func _ready():
@@ -36,5 +38,11 @@ func next_wave():
 func on_enemy_kill():
 	enemyCount -= 1
 	if(enemyCount <= 0):
+		toggle_in_wave()
 		next_wave()
 
+func toggle_in_wave():
+	clown.inWave = !clown.inWave
+
+func throw_bandage():
+	clown.throw_bandage()

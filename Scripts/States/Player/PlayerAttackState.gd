@@ -6,7 +6,7 @@ class_name PlayerAttack
 var direction : Vector2
 var speed : float
 
-const ATTACK_MOVE_SPEED = 4500.0
+const ATTACK_MOVE_SPEED = 3000.0
 
 var enemies
 

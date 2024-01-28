@@ -2,6 +2,6 @@
 
 [ext_resource type="Script" path="res://PauseController.gd" id="1_ll3tl"]
 
-[node name="PauseController" type="CanvasLayer"]
+[node name="PauseController" type="CanvasLayer" groups=["Pause"]]
 process_mode = 3
 script = ExtResource("1_ll3tl")

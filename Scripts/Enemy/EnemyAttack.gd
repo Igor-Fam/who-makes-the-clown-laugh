@@ -9,4 +9,4 @@ func set_angle():
 func _on_body_entered(body):
 	if body is Player && !body.immune:
 		body.knockbackDirection = (player.global_position - enemy.global_position).normalized()
-		body.get_hit()
+		body.get_hit(1)
