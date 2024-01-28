@@ -1,14 +1,10 @@
 extends Node
 class_name WaveController
 
-enum{
-	R,
-	L
-}
+@export var enemyCount: int
 
 var waves = ["wave1", "wave2", "wave3"]
-var currentWave = 0
-var enemyCount: int
+var currentWave = -1
 var enemyPath = preload("res://Nodes/enemy.tscn")
 var active = false
 
@@ -17,21 +13,28 @@ var active = false
 @onready var animPlayer = $AnimationPlayer
 
 func _ready():
-	
+	player.Killed.connect(on_enemy_kill)
 	next_wave()
 
-func spawn_enemy(side, type):
+func spawn_enemy(side: String, type: String):
 	var enemy = enemyPath.instantiate()
-	enemy.global_position = Vector2(260 if side == R else -260, -70)
-	enemy.type = type
+	enemy.global_position = Vector2(260 if side == "R" else -260, -70)
+	match type:
+		"AGGRESSIVE": 
+			enemy.type = Enemy.AGGRESSIVE
+		"OBSERVER": 
+			enemy.type = Enemy.OBSERVER
+		"PACIFIST": 
+			enemy.type = Enemy.PACIFIST
 	world.add_child(enemy)
 
 func next_wave():
-	if(len(waves) == 0):
-		return
-	waves[0].start()
+	currentWave += 1
+	animPlayer.play(waves[currentWave])
+	print(waves[currentWave])
 
-func on_wave_beaten():
-	remove_child(waves[0])
-	waves.pop_front()
-	next_wave()
+func on_enemy_kill():
+	enemyCount -= 1
+	if(enemyCount <= 0):
+		next_wave()
+

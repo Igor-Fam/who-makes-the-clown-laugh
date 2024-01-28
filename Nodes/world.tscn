@@ -1,11 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://gtmyh0nxh3po"]
+[gd_scene load_steps=5 format=3 uid="uid://gtmyh0nxh3po"]
 
 [ext_resource type="PackedScene" uid="uid://ccp065eki7vnx" path="res://Nodes/pause_controller.tscn" id="1_o5mdd"]
 [ext_resource type="PackedScene" uid="uid://bppj3pue6338v" path="res://Nodes/player.tscn" id="1_ouasl"]
 [ext_resource type="Texture2D" uid="uid://b5oh4xaqrn236" path="res://Assets/background.png" id="3_w2rqg"]
-[ext_resource type="Script" path="res://Scripts/Waves/WaveController.gd" id="4_8v1xi"]
-[ext_resource type="Script" path="res://Scripts/Waves/Wave1.gd" id="4_dje3h"]
-[ext_resource type="Script" path="res://Scripts/Waves/Wave2.gd" id="5_oenvd"]
+[ext_resource type="PackedScene" uid="uid://vyybb1ind7lg" path="res://Nodes/wave_controller.tscn" id="4_x3ub7"]
 
 [node name="World" type="Node2D" groups=["World"]]
 
@@ -33,11 +31,4 @@ polygon = PackedVector2Array(-424, 240, -424, -24, -452, -24, -452, 274, 464, 27
 z_index = -1
 texture = ExtResource("3_w2rqg")
 
-[node name="WaveController" type="Node" parent="."]
-script = ExtResource("4_8v1xi")
-
-[node name="Wave1" type="Node" parent="WaveController"]
-script = ExtResource("4_dje3h")
-
-[node name="Wave2" type="Node" parent="WaveController"]
-script = ExtResource("5_oenvd")
+[node name="WaveController" parent="." instance=ExtResource("4_x3ub7")]
